@@ -1,0 +1,72 @@
+{
+  "name": "Coupon",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Codice coupon (es. BENVENUTO10)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Descrizione del coupon"
+    },
+    "discount_type": {
+      "type": "string",
+      "enum": [
+        "percentage",
+        "fixed"
+      ],
+      "description": "Tipo di sconto: percentuale o fisso in euro"
+    },
+    "discount_value": {
+      "type": "number",
+      "description": "Valore sconto (es. 10 per 10% o \u20ac10)"
+    },
+    "min_order": {
+      "type": "number",
+      "default": 0,
+      "description": "Importo minimo ordine per usare il coupon"
+    },
+    "max_uses": {
+      "type": "number",
+      "description": "Numero massimo di utilizzi totali (null = illimitato)"
+    },
+    "uses_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Numero di volte gi\u00e0 usato"
+    },
+    "used_by_emails": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "Lista email dei clienti che hanno gi\u00e0 usato questo coupon"
+    },
+    "max_uses_per_customer": {
+      "type": "number",
+      "default": 1,
+      "description": "Numero massimo di utilizzi per singolo cliente (1 = una sola volta)"
+    },
+    "assigned_to_email": {
+      "type": "string",
+      "description": "Se valorizzato, il coupon \u00e8 riservato a questo utente"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Se il coupon \u00e8 attivo"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Data di scadenza (opzionale)"
+    }
+  },
+  "required": [
+    "code",
+    "discount_type",
+    "discount_value"
+  ]
+}

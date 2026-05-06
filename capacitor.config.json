@@ -1,0 +1,10 @@
+{
+  "appId": "com.crispyparma.app",
+  "appName": "CRISPY",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true,
+    "allowNavigation": ["*.base44.app"]
+  }
+}

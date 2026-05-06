@@ -1,0 +1,181 @@
+{
+  "name": "Order",
+  "type": "object",
+  "properties": {
+    "customer_email": {
+      "type": "string",
+      "description": "Customer email"
+    },
+    "customer_name": {
+      "type": "string",
+      "description": "Customer name"
+    },
+    "customer_phone": {
+      "type": "string",
+      "description": "Customer phone"
+    },
+    "delivery_address": {
+      "type": "string",
+      "description": "Delivery address or restaurant address for pickup"
+    },
+    "delivery_lat": {
+      "type": "number",
+      "description": "Delivery latitude"
+    },
+    "delivery_lng": {
+      "type": "number",
+      "description": "Delivery longitude"
+    },
+    "items": {
+      "type": "array",
+      "description": "Ordered items with customizations",
+      "items": {
+        "type": "object",
+        "properties": {
+          "menu_item_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "base_price": {
+            "type": "number"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "removals": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "extras": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "required_choices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "group_name": {
+                  "type": "string"
+                },
+                "selected": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "item_total": {
+            "type": "number"
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "subtotal": {
+      "type": "number",
+      "description": "Subtotal before delivery fee"
+    },
+    "delivery_fee": {
+      "type": "number",
+      "description": "Delivery fee (0 for pickup)"
+    },
+    "coupon_code": {
+      "type": "string",
+      "description": "Applied coupon code"
+    },
+    "coupon_discount": {
+      "type": "number",
+      "description": "Discount amount from coupon",
+      "default": 0
+    },
+    "tip_amount": {
+      "type": "number",
+      "description": "Tip amount",
+      "default": 0
+    },
+    "total": {
+      "type": "number",
+      "description": "Total amount"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending_payment",
+        "pending",
+        "accepted",
+        "preparing",
+        "ready",
+        "picked_up",
+        "delivering",
+        "delivered",
+        "cancelled"
+      ],
+      "default": "pending",
+      "description": "Order status"
+    },
+    "driver_email": {
+      "type": "string"
+    },
+    "driver_name": {
+      "type": "string"
+    },
+    "driver_lat": {
+      "type": "number"
+    },
+    "driver_lng": {
+      "type": "number"
+    },
+    "estimated_delivery": {
+      "type": "string"
+    },
+    "payment_method": {
+      "type": "string",
+      "enum": [
+        "card_online",
+        "card",
+        "cash",
+        "satispay",
+        "pickup"
+      ],
+      "default": "card"
+    },
+    "delivery_type": {
+      "type": "string",
+      "enum": [
+        "delivery",
+        "pickup"
+      ],
+      "default": "delivery",
+      "description": "Whether order is delivered or picked up at restaurant"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Special notes"
+    }
+  },
+  "required": [
+    "customer_email",
+    "delivery_address",
+    "items",
+    "total"
+  ]
+}

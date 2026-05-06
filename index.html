@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="https://base44.com/logo_v2.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>Crispy Parma — Dashboard</title>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SUNMI T3 PRO MAX — JS Bridge Custom Script
+       Intercetta il binding nativo SunmiPrinterService
+       e rende disponibile window.stampaScontrino(testo)
+       ═══════════════════════════════════════════════════════════ -->
+  <script>
+    (function () {
+      /**
+       * Polling: aspetta che Android inietti window.SunmiInnerPrinter
+       * (il bridge è disponibile dopo ~500ms dall'avvio della WebView)
+       */
+      var _sunmiReady = false;
+      var _pollInterval = setInterval(function () {
+        if (window.SunmiInnerPrinter) {
+          _sunmiReady = true;
+          clearInterval(_pollInterval);
+          console.log('[Sunmi] JS Bridge rilevato — stampante pronta.');
+          window.dispatchEvent(new CustomEvent('sunmi:ready'));
+        }
+      }, 300);
+
+      /**
+       * window.stampaScontrino(testo)
+       * Stampa testo libero sulla stampante interna Sunmi.
+       * Compatibile con il pulsante della dashboard Base44.
+       */
+      window.stampaScontrino = function (testo) {
+        if (!window.SunmiInnerPrinter) {
+          alert('⚠️ Stampante Sunmi non rilevata.\nAssicurati di aprire questa pagina sul dispositivo Sunmi T3 Pro Max.');
+          return false;
+        }
+        try {
+          var p = window.SunmiInnerPrinter;
+          p.setAlignment(0);
+          p.setFontSize(24);
+          p.setFontWeight(false);
+          p.printText(testo + '\n', null);
+          p.lineWrap(3);
+          p.cutPaper();
+          return true;
+        } catch (e) {
+          console.error('[Sunmi] Errore printText:', e);
+          return false;
+        }
+      };
+    })();
+  </script>
+
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

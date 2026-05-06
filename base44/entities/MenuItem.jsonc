@@ -1,0 +1,104 @@
+{
+  "name": "MenuItem",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the dish"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the dish"
+    },
+    "price": {
+      "type": "number",
+      "description": "Base price in EUR"
+    },
+    "category": {
+      "type": "string",
+      "description": "Category slug (from Category entity)"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "URL of the dish image"
+    },
+    "available": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether the item is currently available"
+    },
+    "is_upsell_item": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show this item in the upsell popup before checkout (max 6)"
+    },
+    "removals": {
+      "type": "array",
+      "description": "Ingredients that can be removed (no price change)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "extras": {
+      "type": "array",
+      "description": "Extra options with surcharge",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "required_choices": {
+      "type": "array",
+      "description": "Groups of mandatory choices",
+      "items": {
+        "type": "object",
+        "properties": {
+          "group_name": {
+            "type": "string"
+          },
+          "min_selections": {
+            "type": "number"
+          },
+          "max_selections": {
+            "type": "number"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "preparation_time": {
+      "type": "number",
+      "description": "Estimated preparation time in minutes"
+    }
+  },
+  "required": [
+    "name",
+    "price",
+    "category"
+  ]
+}

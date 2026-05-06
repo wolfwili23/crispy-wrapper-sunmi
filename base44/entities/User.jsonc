@@ -1,0 +1,39 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "customer",
+        "driver",
+        "restaurant"
+      ],
+      "default": "customer"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "address_lat": {
+      "type": "number"
+    },
+    "address_lng": {
+      "type": "number"
+    },
+    "driver_available": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether driver is available for deliveries"
+    }
+  },
+  "required": [
+    "phone",
+    "address",
+    "address_lat",
+    "address_lng"
+  ]
+}

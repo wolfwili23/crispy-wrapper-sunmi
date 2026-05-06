@@ -1,0 +1,32 @@
+{
+  "name": "FidelityCard",
+  "type": "object",
+  "properties": {
+    "customer_email": {
+      "type": "string",
+      "description": "Email del cliente"
+    },
+    "customer_name": {
+      "type": "string",
+      "description": "Nome del cliente"
+    },
+    "points": {
+      "type": "number",
+      "default": 0,
+      "description": "Punti accumulati totali"
+    },
+    "total_spent": {
+      "type": "number",
+      "default": 0,
+      "description": "Totale speso in euro"
+    },
+    "total_orders": {
+      "type": "number",
+      "default": 0,
+      "description": "Numero totale ordini"
+    }
+  },
+  "required": [
+    "customer_email"
+  ]
+}

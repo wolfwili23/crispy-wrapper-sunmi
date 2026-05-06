@@ -1,0 +1,38 @@
+{
+  "name": "ChoiceGroup",
+  "type": "object",
+  "properties": {
+    "group_name": {
+      "type": "string",
+      "description": "Nome del gruppo (es. Cottura, Formato, Salsa)"
+    },
+    "min_selections": {
+      "type": "number",
+      "default": 1,
+      "description": "Numero minimo di opzioni selezionabili"
+    },
+    "max_selections": {
+      "type": "number",
+      "default": 1,
+      "description": "Numero massimo di opzioni selezionabili"
+    },
+    "options": {
+      "type": "array",
+      "description": "Opzioni del gruppo",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "group_name"
+  ]
+}

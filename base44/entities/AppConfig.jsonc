@@ -1,0 +1,17 @@
+{
+  "name": "AppConfig",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Chiave di configurazione (es. receipt_config)"
+    },
+    "value": {
+      "type": "object",
+      "description": "Valore JSON della configurazione"
+    }
+  },
+  "required": [
+    "key"
+  ]
+}
