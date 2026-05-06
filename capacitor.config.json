@@ -3,8 +3,9 @@
   "appName": "CRISPY",
   "webDir": "dist",
   "server": {
+    "url": "https://crispyparma.it",
     "androidScheme": "https",
     "cleartext": true,
-    "allowNavigation": ["*.base44.app"]
+    "allowNavigation": ["crispyparma.it", "*.base44.app"]
   }
 }
