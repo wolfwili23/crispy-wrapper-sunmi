@@ -1,0 +1,5 @@
+rootProject.name = "crispyparma-wrapper"
+
+apply from: file("../node_modules/@capacitor/android/capacitor.settings.gradle")
+
+include ':app'
