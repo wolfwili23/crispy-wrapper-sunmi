@@ -1,59 +1,58 @@
 package com.crispyparma.app;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
-import android.os.RemoteException;
-
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
-import com.sunmi.peripheral.printer.IWoyouService;
+import com.sunmi.peripheral.printer.InnerPrinterCallback;
+import com.sunmi.peripheral.printer.InnerPrinterException;
+import com.sunmi.peripheral.printer.InnerPrinterManager;
+import com.sunmi.peripheral.printer.SunmiPrinterService;
 
 @CapacitorPlugin(name = "SunmiPrinter")
 public class SunmiPrinterPlugin extends Plugin {
 
-    private IWoyouService woyouService;
+    private SunmiPrinterService printerService = null;
 
-    private ServiceConnection connService = new ServiceConnection() {
+    private InnerPrinterCallback innerPrinterCallback = new InnerPrinterCallback() {
         @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            woyouService = IWoyouService.Stub.asInterface(service);
+        protected void onConnected(SunmiPrinterService service) {
+            printerService = service;
         }
         @Override
-        public void onServiceDisconnected(ComponentName name) {
-            woyouService = null;
+        protected void onDisconnected() {
+            printerService = null;
         }
     };
 
     @Override
     public void load() {
-        Intent intent = new Intent();
-        intent.setPackage("woyou.aidlservice.jiuiv5");
-        intent.setAction("woyou.aidlservice.jiuiv5.IWoyouService");
-        getContext().bindService(intent, connService, Context.BIND_AUTO_CREATE);
+        try {
+            InnerPrinterManager.getInstance().bindService(
+                    getContext(), innerPrinterCallback
+            );
+        } catch (InnerPrinterException e) {
+            e.printStackTrace();
+        }
     }
 
     @PluginMethod
     public void printText(PluginCall call) {
         String text = call.getString("text", "");
         try {
-            if (woyouService != null) {
-                woyouService.printerInit();
-                woyouService.printText(text);
-                woyouService.feedPaper(3);
-                woyouService.cutPaper();
+            if (printerService != null) {
+                printerService.printerInit(null);
+                printerService.printText(text, null);
+                printerService.feedPaper(3, null);
+                printerService.cutPaper(null);
                 JSObject ret = new JSObject();
                 ret.put("success", true);
                 call.resolve(ret);
             } else {
                 call.reject("Sunmi service not connected");
             }
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             call.reject("Print error: " + e.getMessage());
         }
     }
@@ -61,7 +60,7 @@ public class SunmiPrinterPlugin extends Plugin {
     @PluginMethod
     public void isConnected(PluginCall call) {
         JSObject ret = new JSObject();
-        ret.put("connected", woyouService != null);
+        ret.put("connected", printerService != null);
         call.resolve(ret);
     }
 }
