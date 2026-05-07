@@ -44,8 +44,7 @@ public class SunmiPrinterPlugin extends Plugin {
             if (printerService != null) {
                 printerService.printerInit(null);
                 printerService.printText(text, null);
-                printerService.feedPaper(3, null);
-                printerService.cutPaper(null);
+                printerService.lineWrap(3, null);
                 JSObject ret = new JSObject();
                 ret.put("success", true);
                 call.resolve(ret);

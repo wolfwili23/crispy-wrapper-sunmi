@@ -37,7 +37,7 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
-    implementation 'com.sunmi:printerlibrary:1.0.15'
+    implementation 'com.sunmi:printerlibrary:1.0.23'
 }
 
 apply from: 'capacitor.build.gradle'
