@@ -43,10 +43,10 @@ public class SunmiPrinterPlugin extends Plugin {
         String text = call.getString("text", "");
         try {
             if (woyouService != null) {
-                woyouService.printerInit(null);
-                woyouService.printText(text, null);
-                woyouService.feedPaper(3, null);
-                woyouService.cutPaper(null);
+                woyouService.printerInit();
+                woyouService.printText(text);
+                woyouService.feedPaper(3);
+                woyouService.cutPaper();
                 JSObject ret = new JSObject();
                 ret.put("success", true);
                 call.resolve(ret);
